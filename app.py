@@ -621,9 +621,12 @@ def progress_history(problem_url_safe):
     )
 
 # ----------------------------- Women's Health ----------------------------- #
-# Safely load women's data
-with open(r"C:\Users\Admin\Downloads\wellora\mini-project\women.json", "r") as f:
-    data = json.load(f)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Load women.json
+with open(os.path.join(BASE_DIR, "women.json"), "r") as f:
+    WOMEN_DATA = json.load(f)
 
 @app.route('/women')
 def women_home():
