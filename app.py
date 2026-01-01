@@ -9,6 +9,10 @@ from datetime import timedelta, date, datetime
 from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import NearestNeighbors
 from urllib.parse import unquote
+import re
+from dotenv import load_dotenv
+
+
 
 # ---------------- Flask App Init ---------------- #
 app = Flask(__name__)
@@ -16,13 +20,34 @@ app.secret_key = 'your-secret-key'  # Change for production
 app.permanent_session_lifetime = timedelta(minutes=60)
 
 # ---------------- Database Connection ---------------- #
-def get_db_connection():
-    return mysql.connector.connect(
-        host=os.getenv("MYSQL_HOST"),
-        user=os.getenv("MYSQL_USER"),
-        password=os.getenv("MYSQL_PASSWORD"),
-        database=os.getenv("MYSQL_DATABASE")
-    )
+
+
+
+# Get DATABASE_URL from environment
+
+
+# Load environment variables FIRST
+load_dotenv()
+
+# Get DATABASE_URL from environment
+db_url = os.getenv("DATABASE_URL")
+
+# Parse the URL
+match = re.match(r'mysql://(.*?):(.*?)@(.*?):(.*?)/(.*)', db_url)
+user, password, host, port, database = match.groups()
+
+# Connect to Railway MySQL
+conn = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    port=port,
+    database=database
+)
+
+cursor = conn.cursor()
+
+
 from dotenv import load_dotenv
 import os
 
