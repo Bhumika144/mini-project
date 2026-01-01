@@ -48,10 +48,17 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 
-from dotenv import load_dotenv
-import os
+def get_db_connection():
+    return mysql.connector.connect(
+        host=host,
+        user=user,
+        password=password,
+        port=port,
+        database=database
+    )
 
-load_dotenv()
+
+
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
@@ -1231,7 +1238,8 @@ def not_found(e):
 
 @app.errorhandler(500)
 def server_error(e):
-    return render_template("500.html"), 500
+    return "Internal Server Error", 500
+
 
 
 # -----------------------------
