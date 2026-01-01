@@ -114,8 +114,16 @@ def make_session_permanent():
 
 
 # ---------------- Skincare Data Loading ---------------- #
-with open(r"C:\Users\Admin\Downloads\wellora\mini-project\updated_products.json", "r") as f:
+# Get the directory where app.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Construct path to JSON file (assume it's in the same folder as app.py)
+json_path = os.path.join(BASE_DIR, "updated_products.json")
+
+# Open the JSON file
+with open(json_path, "r") as f:
     SKIN_DATA = json.load(f)
+
 
 # --- Problem Mapping for Display and DB Storage (User-Friendly Names) ---
 PROBLEM_MAP = {
