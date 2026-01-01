@@ -1230,15 +1230,6 @@ def stress_music_player():
     return render_template('stress_music.html', music_videos=music_videos)
 
 # ====================================================================
-#                      ERROR HANDLERS (OPTIONAL)
-# ====================================================================
-@app.errorhandler(404)
-def not_found(e):
-    return render_template("404.html"), 404
-
-@app.errorhandler(500)
-def server_error(e):
-    return "Internal Server Error", 500
 
 
 
